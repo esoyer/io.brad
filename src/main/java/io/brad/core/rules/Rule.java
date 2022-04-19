@@ -6,8 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.brad.core.ModelFields;
 import io.brad.core.deserializers.FieldDeserializer;
+import io.brad.core.deserializers.FieldRuleDeserializer;
 import io.brad.core.deserializers.NamedFunctionDeserializer;
 import io.brad.core.deserializers.OperatorDeserializer;
 import io.brad.core.fields.Field;
@@ -44,7 +46,9 @@ public interface Rule<M> {
     }
 
     default String serialize() throws JsonProcessingException {
-        return new ObjectMapper().writeValueAsString(this);
+        return new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writeValueAsString(this);
     }
 
     static <P> Rule<P> deserialize(String ruleAsJson, ModelFields<P> modelFields) throws JsonProcessingException {
@@ -53,7 +57,9 @@ public interface Rule<M> {
                         new SimpleModule()
                                 .addDeserializer(Field.class, new FieldDeserializer<>(modelFields))
                                 .addDeserializer(ComparisonOperator.class, new OperatorDeserializer())
-                                .addDeserializer(NamedFunction.class, new NamedFunctionDeserializer()))
+                                .addDeserializer(NamedFunction.class, new NamedFunctionDeserializer())
+                                .addDeserializer(FieldRule.class, new FieldRuleDeserializer()))
+                .registerModule(new JavaTimeModule())
                 .readValue(ruleAsJson, new TypeReference<>() {
                 });
     }

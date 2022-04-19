@@ -1,8 +1,8 @@
 package io.brad.core.fields;
 
 import io.brad.core.operators.ComparisonOperator;
-import io.brad.core.rules.FieldRule;
 import io.brad.core.operators.Operators;
+import io.brad.core.rules.FieldRule;
 import io.brad.core.rules.Rule;
 
 import java.time.temporal.Temporal;
@@ -10,8 +10,8 @@ import java.util.function.Function;
 
 public class TemporalField<M, T extends Temporal> extends FieldImpl<M, T> {
 
-    public TemporalField(String code, Function<M, T> fieldAccessor) {
-        super(code, fieldAccessor);
+    public TemporalField(String code, Function<M, T> fieldAccessor, Class<T> type) {
+        super(code, fieldAccessor, type);
     }
 
     @SuppressWarnings("unchecked")

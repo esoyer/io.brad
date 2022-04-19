@@ -1,10 +1,11 @@
 package io.brad.core.fields;
 
-import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.DSL;
+import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.rules.FieldRule;
 import io.brad.core.rules.Rule;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
@@ -12,14 +13,16 @@ import java.util.function.Function;
 import static io.brad.core.operators.Operators.equals;
 import static io.brad.core.operators.Operators.isNull;
 
-public abstract class FieldImpl<M, T> implements Field<M, T> {
+abstract class FieldImpl<M, T> implements Field<M, T> {
 
     private final String code;
     private final Function<M, T> fieldAccessor;
+    private final Type type;
 
-    public FieldImpl(String code, Function<M, T> fieldAccessor) {
+    FieldImpl(String code, Function<M, T> fieldAccessor, Type type) {
         this.code = code;
         this.fieldAccessor = fieldAccessor;
+        this.type = type;
     }
 
     @Override
@@ -30,6 +33,11 @@ public abstract class FieldImpl<M, T> implements Field<M, T> {
     @Override
     public T getValue(M model) {
         return fieldAccessor.apply(model);
+    }
+
+    @Override
+    public Type getType() {
+        return type;
     }
 
     @SuppressWarnings("unchecked")

@@ -1,5 +1,6 @@
 package io.brad.core.fields;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import io.brad.core.functions.NamedFunction;
 import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.operators.Operators;
@@ -16,8 +17,8 @@ import static io.brad.core.operators.Operators.equals;
 
 public class CollectionField<M, T, C extends Collection<? extends T>> extends FieldImpl<M, C> {
 
-    public CollectionField(String code, Function<M, C> fieldAccessor) {
-        super(code, fieldAccessor);
+    public CollectionField(String code, Function<M, C> fieldAccessor, TypeReference<C> typeReference) {
+        super(code, fieldAccessor, typeReference.getType());
     }
 
     @SuppressWarnings("unchecked")

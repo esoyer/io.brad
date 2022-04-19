@@ -10,8 +10,8 @@ import static io.brad.core.operators.Operators.*;
 
 public class NumberField<M, T extends Number> extends FieldImpl<M, T> {
 
-    public NumberField(String code, Function<M, T> fieldAccessor) {
-        super(code, fieldAccessor);
+    public NumberField(String code, Function<M, T> fieldAccessor, Class<T> type) {
+        super(code, fieldAccessor, type);
     }
 
     @SuppressWarnings("unchecked")
