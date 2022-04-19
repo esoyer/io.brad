@@ -7,13 +7,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.brad.core.ModelFields;
+import io.brad.core.deserializers.FieldDeserializer;
+import io.brad.core.deserializers.NamedFunctionDeserializer;
+import io.brad.core.deserializers.OperatorDeserializer;
 import io.brad.core.fields.Field;
 import io.brad.core.functions.NamedFunction;
 import io.brad.core.operators.ComparisonOperator;
-import io.brad.core.serializers.FieldDeserializer;
-import io.brad.core.serializers.NamedFunctionDeserializer;
-import io.brad.core.serializers.OperatorDeserializer;
-import io.brad.core.serializers.OperatorSerializer;
 
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 import static io.brad.core.operators.BooleanOperator.and;
@@ -45,9 +44,7 @@ public interface Rule<M> {
     }
 
     default String serialize() throws JsonProcessingException {
-        return new ObjectMapper()
-                .registerModule(new SimpleModule().addSerializer(new OperatorSerializer()))
-                .writeValueAsString(this);
+        return new ObjectMapper().writeValueAsString(this);
     }
 
     static <P> Rule<P> deserialize(String ruleAsJson, ModelFields<P> modelFields) throws JsonProcessingException {
