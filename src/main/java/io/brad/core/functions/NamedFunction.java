@@ -1,4 +1,4 @@
-package io.brad.core;
+package io.brad.core.functions;
 
 public interface NamedFunction<T, U> {
 

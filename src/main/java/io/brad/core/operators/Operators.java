@@ -1,4 +1,7 @@
-package io.brad.core;
+package io.brad.core.operators;
+
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.operators.ComparisonOperatorImpl;
 
 import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;

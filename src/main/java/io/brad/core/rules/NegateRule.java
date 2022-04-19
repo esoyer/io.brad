@@ -1,4 +1,4 @@
-package io.brad.core;
+package io.brad.core.rules;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;

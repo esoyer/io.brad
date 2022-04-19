@@ -1,4 +1,9 @@
-package io.brad.core;
+package io.brad.core.fields;
+
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.rules.FieldRule;
+import io.brad.core.operators.Operators;
+import io.brad.core.rules.Rule;
 
 import java.time.temporal.Temporal;
 import java.util.function.Function;

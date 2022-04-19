@@ -1,11 +1,18 @@
-package io.brad.core;
+package io.brad.core.fields;
+
+import io.brad.core.functions.NamedFunction;
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.operators.Operators;
+import io.brad.core.rules.FieldRule;
+import io.brad.core.rules.FunctionRule;
+import io.brad.core.rules.Rule;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-import static io.brad.core.Functions.collection_size;
-import static io.brad.core.Operators.equals;
+import static io.brad.core.functions.Functions.collection_size;
+import static io.brad.core.operators.Operators.equals;
 
 public class CollectionField<M, T, C extends Collection<? extends T>> extends FieldImpl<M, C> {
 

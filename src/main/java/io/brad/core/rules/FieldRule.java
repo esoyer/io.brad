@@ -1,10 +1,12 @@
-package io.brad.core;
+package io.brad.core.rules;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.fields.Field;
 
-import static io.brad.core.Operators.isNull;
+import static io.brad.core.operators.Operators.isNull;
 
 public class FieldRule<M, T> implements Rule<M> {
 

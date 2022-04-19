@@ -1,10 +1,12 @@
-package io.brad.core;
+package io.brad.core.serializers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.TextNode;
+import io.brad.core.functions.Functions;
+import io.brad.core.functions.NamedFunction;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,22 +14,22 @@ import java.util.Arrays;
 import static java.lang.reflect.Modifier.*;
 import static org.jooq.lambda.Unchecked.function;
 
-public class OperatorDeserializer extends StdDeserializer<ComparisonOperator<?>> {
+public class NamedFunctionDeserializer extends StdDeserializer<NamedFunction<?, ?>> {
 
-    public OperatorDeserializer() {
-        super(ComparisonOperator.class);
+    public NamedFunctionDeserializer() {
+        super(NamedFunction.class);
     }
 
     @Override
-    public ComparisonOperator<?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public NamedFunction<?, ?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         TreeNode treeNode = jsonParser.getCodec().readTree(jsonParser);
         String code = ((TextNode) treeNode.get("code")).textValue();
 
-        return Arrays.stream(Operators.class.getFields())
+        return Arrays.stream(Functions.class.getFields())
                 .filter(f -> isPublic(f.getModifiers()) && isStatic(f.getModifiers()) && isFinal(f.getModifiers()))
-                .filter(f -> ComparisonOperator.class.isAssignableFrom(f.getType()))
+                .filter(f -> NamedFunction.class.isAssignableFrom(f.getType()))
                 .map(function(f -> f.get(null)))
-                .map(ComparisonOperator.class::cast)
+                .map(NamedFunction.class::cast)
                 .filter(o -> o.getCode().equals(code))
                 .findFirst()
                 .orElseThrow();

@@ -1,8 +1,9 @@
-package io.brad.core;
+package io.brad.core.rules;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.brad.core.operators.BooleanOperator;
 
 public class BinaryRule<M> implements Rule<M> {
 

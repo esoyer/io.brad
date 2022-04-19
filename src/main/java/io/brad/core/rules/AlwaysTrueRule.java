@@ -1,20 +1,20 @@
-package io.brad.core;
+package io.brad.core.rules;
 
-public class AlwaysFalseRule implements Rule<Object> {
+public class AlwaysTrueRule implements Rule<Object> {
 
-    private static final Rule<?> INSTANCE = new AlwaysFalseRule();
+    public static final Rule<?> INSTANCE = new AlwaysTrueRule();
 
     @SuppressWarnings("unchecked")
     public static <M> Rule<M> getInstance() {
         return (Rule<M>) INSTANCE;
     }
 
-    private AlwaysFalseRule() {
+    private AlwaysTrueRule() {
         // private
     }
 
     @Override
     public boolean validate(Object model) {
-        return false;
+        return true;
     }
 }

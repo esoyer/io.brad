@@ -1,4 +1,6 @@
-package io.brad.core;
+package io.brad.core.fields;
+
+import io.brad.core.rules.Rule;
 
 import java.util.function.Function;
 

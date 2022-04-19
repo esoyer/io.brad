@@ -1,11 +1,16 @@
-package io.brad.core;
+package io.brad.core.fields;
+
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.DSL;
+import io.brad.core.rules.FieldRule;
+import io.brad.core.rules.Rule;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 
-import static io.brad.core.Operators.equals;
-import static io.brad.core.Operators.isNull;
+import static io.brad.core.operators.Operators.equals;
+import static io.brad.core.operators.Operators.isNull;
 
 public abstract class FieldImpl<M, T> implements Field<M, T> {
 

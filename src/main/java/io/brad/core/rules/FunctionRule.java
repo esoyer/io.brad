@@ -1,8 +1,11 @@
-package io.brad.core;
+package io.brad.core.rules;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.functions.NamedFunction;
+import io.brad.core.fields.Field;
 
 public class FunctionRule<M, T, U> implements Rule<M> {
 

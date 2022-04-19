@@ -1,5 +1,9 @@
 package io.brad.core;
 
+import io.brad.core.rules.AlwaysFalseRule;
+import io.brad.core.rules.AlwaysTrueRule;
+import io.brad.core.rules.Rule;
+
 import java.util.Arrays;
 import java.util.Collection;
 

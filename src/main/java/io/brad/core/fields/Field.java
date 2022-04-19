@@ -1,4 +1,4 @@
-package io.brad.core;
+package io.brad.core.fields;
 
 public interface Field<M, T> {
 

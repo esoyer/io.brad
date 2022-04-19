@@ -1,8 +1,9 @@
-package io.brad.core;
+package io.brad.core.serializers;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+import io.brad.core.operators.ComparisonOperator;
 
 import java.io.IOException;
 

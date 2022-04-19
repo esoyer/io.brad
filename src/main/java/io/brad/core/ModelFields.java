@@ -1,5 +1,7 @@
 package io.brad.core;
 
+import io.brad.core.fields.Field;
+
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package io.brad.core;
+package io.brad.core.functions;
+
+import io.brad.core.functions.NamedFunction;
 
 import java.util.function.Function;
 

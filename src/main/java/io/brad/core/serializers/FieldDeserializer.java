@@ -1,10 +1,12 @@
-package io.brad.core;
+package io.brad.core.serializers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.TextNode;
+import io.brad.core.ModelFields;
+import io.brad.core.fields.Field;
 
 import java.io.IOException;
 
