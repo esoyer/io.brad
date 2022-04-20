@@ -1,24 +1,18 @@
 package io.brad.core.rules;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
 
 import static io.brad.core.operators.Operators.isNull;
 
-public class FieldRule<M, T> implements Rule<M> {
+public class FieldToValueRule<M, T> implements Rule<M> {
 
     private final Field<M, T> field;
     private final ComparisonOperator<T> comparisonOperator;
     private final T value;
 
-    @JsonCreator
-    public FieldRule(
-            @JsonProperty("field") Field<M, T> field,
-            @JsonProperty("operator") ComparisonOperator<T> comparisonOperator,
-            @JsonProperty("value") T value) {
+    public FieldToValueRule(Field<M, T> field, ComparisonOperator<T> comparisonOperator, T value) {
         this.field = field;
         this.comparisonOperator = comparisonOperator;
         this.value = value;

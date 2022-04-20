@@ -7,19 +7,19 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
-import io.brad.core.rules.FieldRule;
+import io.brad.core.rules.FieldToValueRule;
 
 import java.io.IOException;
 
-public class FieldRuleDeserializer extends StdDeserializer<FieldRule<?, ?>> {
+public class FieldToValueRuleDeserializer extends StdDeserializer<FieldToValueRule<?, ?>> {
 
-    public FieldRuleDeserializer() {
-        super(FieldRule.class);
+    public FieldToValueRuleDeserializer() {
+        super(FieldToValueRule.class);
     }
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public FieldRule<?, ?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public FieldToValueRule<?, ?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         TreeNode rootNode = jsonParser.getCodec().readTree(jsonParser);
 
         TreeNode fieldNode = rootNode.get("field");
@@ -35,6 +35,6 @@ public class FieldRuleDeserializer extends StdDeserializer<FieldRule<?, ?>> {
         Object value = deserializationContext.readValue(valueJsonParser,
                 TypeFactory.defaultInstance().constructType(field.getType()));
 
-        return new FieldRule(field, operator, value);
+        return new FieldToValueRule(field, operator, value);
     }
 }

@@ -1,19 +1,21 @@
 package io.brad.core.functions;
 
-import io.brad.core.functions.NamedFunction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.lang.reflect.Type;
 import java.util.function.Function;
 
 public class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
 
     private final String code;
     private final Function<T, U> function;
+    private final Class<U> type;
 
-    public NamedFunctionImpl(String code, Function<T, U> function) {
+    public NamedFunctionImpl(String code, Function<T, U> function, Class<U> type) {
         this.code = code;
         this.function = function;
+        this.type = type;
     }
-
 
     @Override
     public String getCode() {
@@ -23,5 +25,11 @@ public class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
     @Override
     public U apply(T t) {
         return function.apply(t);
+    }
+
+    @Override
+    @JsonIgnore
+    public Type getReturnType() {
+        return type;
     }
 }
