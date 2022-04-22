@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
+import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
@@ -29,6 +30,10 @@ public class FieldToValueRuleDeserializer extends StdDeserializer<FieldToValueRu
         ComparisonOperator<?> operator = deserializationContext.readValue(operatorNode.traverse(jsonParser.getCodec()), ComparisonOperator.class);
 
         TreeNode valueNode = rootNode.get("value");
+        if (valueNode instanceof NullNode) {
+            return new FieldToValueRule(field, operator, null);
+        }
+
         JsonParser valueJsonParser = valueNode.traverse(jsonParser.getCodec());
         valueJsonParser.nextToken();
 

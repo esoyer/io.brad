@@ -7,18 +7,26 @@ import org.assertj.core.api.AbstractAssert;
 
 public class RuleAssertion<M> extends AbstractAssert<RuleAssertion<M>, Rule<M>> {
 
-    public RuleAssertion(Rule<M> rule) {
+    private final ModelFields<M> modelFields;
+
+    private RuleAssertion(Rule<M> rule, ModelFields<M> modelFields) {
         super(rule, RuleAssertion.class);
+        this.modelFields = modelFields;
     }
 
-    public static <M> RuleAssertion<M> assertThat(Rule<M> rule) {
-        return new RuleAssertion<>(rule);
+    public static <M> RuleAssertion<M> assertThat(Rule<M> rule, ModelFields<M> modelFields) {
+        return new RuleAssertion<>(rule, modelFields);
     }
 
     public RuleAssertion<M> validates(M model) {
         boolean validated = actual.validate(model);
         if (!validated) {
             failWithMessage("Expected rule to validate model, but didn't");
+        }
+
+        boolean validatedByDeser = deserializedRule().validate(model);
+        if (!validatedByDeser) {
+            failWithMessage("Expected deserialized rule to validate model, but didn't");
         }
 
         return this;
@@ -30,39 +38,26 @@ public class RuleAssertion<M> extends AbstractAssert<RuleAssertion<M>, Rule<M>> 
             failWithMessage("Expected rule to not validate model, but did");
         }
 
-        return this;
-    }
-
-    public RuleAssertion<M> isSerializable() {
-        try {
-            actual.serialize();
-        } catch (JsonProcessingException e) {
-            failWithMessage("Expected rule to be serializable, but was not");
+        boolean validatedByDeser = deserializedRule().validate(model);
+        if (validatedByDeser) {
+            failWithMessage("Expected deserialized rule to not validate model, but did");
         }
 
         return this;
     }
 
-    public RuleAssertion<M> isDeserializable(ModelFields<M> modelFields) {
-        String jsonRule = null;
+    private Rule<M> deserializedRule() {
+        String serialize;
         try {
-            jsonRule = actual.serialize();
+            serialize = actual.serialize();
         } catch (JsonProcessingException e) {
-            failWithMessage("Expected rule to be serializable, but was not");
+            throw new RuntimeException("Could not serialize rule", e);
         }
 
-        Rule<M> deserializedRule = null;
         try {
-            deserializedRule = Rule.deserialize(jsonRule, modelFields);
+            return Rule.deserialize(serialize, modelFields);
         } catch (JsonProcessingException e) {
-            failWithMessage("Expected rule to be deserializable, but was not");
+            throw new RuntimeException("Could not deserialize rule", e);
         }
-
-        assertThat(deserializedRule)
-                .usingRecursiveComparison()
-                .withFailMessage("Expected deserialized rule to be equal to the actual one")
-                .isEqualTo(actual);
-
-        return this;
     }
 }
