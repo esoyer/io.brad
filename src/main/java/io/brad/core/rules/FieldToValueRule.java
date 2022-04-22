@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
 
-import static io.brad.core.operators.Operators.isNull;
+import java.util.Objects;
 
 public class FieldToValueRule<M, T> implements Rule<M> {
 
@@ -15,13 +15,13 @@ public class FieldToValueRule<M, T> implements Rule<M> {
     public FieldToValueRule(Field<M, T> field, ComparisonOperator<T> comparisonOperator, T value) {
         this.field = field;
         this.comparisonOperator = comparisonOperator;
-        this.value = value;
+        this.value = comparisonOperator.acceptsNulls() ? value : Objects.requireNonNull(value);
     }
 
     @Override
     public boolean validate(M model) {
         T fieldValue = field.getValue(model);
-        if (comparisonOperator != isNull && fieldValue == null) {
+        if (!comparisonOperator.acceptsNulls() && fieldValue == null) {
             return false;
         }
 

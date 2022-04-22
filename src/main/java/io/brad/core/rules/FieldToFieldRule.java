@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
-import io.brad.core.operators.Operators;
 
 public class FieldToFieldRule<M, T> implements Rule<M> {
 
@@ -25,12 +24,13 @@ public class FieldToFieldRule<M, T> implements Rule<M> {
 
     @Override
     public boolean validate(M model) {
-        T field1Value = field1.getValue(model);
-        if (comparisonOperator != Operators.isNull && field1Value == null) {
+        T value1 = field1.getValue(model);
+        T value2 = field2.getValue(model);
+        if (!comparisonOperator.acceptsNulls() && (value1 == null || value2 == null)) {
             return false;
         }
 
-        return comparisonOperator.test(field1Value, field2.getValue(model));
+        return comparisonOperator.test(value1, value2);
     }
 
     @JsonGetter("field1")

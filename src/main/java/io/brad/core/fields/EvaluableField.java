@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static io.brad.core.operators.Operators.equals;
-import static io.brad.core.operators.Operators.isNull;
 
 interface EvaluableField<M, T> extends Field<M, T> {
 
@@ -34,7 +33,7 @@ interface EvaluableField<M, T> extends Field<M, T> {
 
     @SuppressWarnings("unchecked")
     default Rule<M> isNull() {
-        return new FieldToValueRule<>(this, (ComparisonOperator<T>) isNull, null);
+        return new FieldToValueRule<>(this, (ComparisonOperator<T>) equals, null);
     }
 
     default Rule<M> isNotNull() {
