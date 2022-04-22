@@ -30,6 +30,7 @@ import static io.brad.core.operators.BooleanOperator.or;
         @JsonSubTypes.Type(value = AlwaysFalseRule.class, name = "alwaysFalseRule"),
         @JsonSubTypes.Type(value = NegateRule.class, name = "negateRule"),
 })
+// TODO: should we completely handle serialization of a Rule outside this interface and its implementations?
 public interface Rule<M> {
 
     boolean validate(M model);
