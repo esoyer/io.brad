@@ -4,7 +4,8 @@ import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.rules.FieldToValueRule;
 import io.brad.core.rules.Rule;
 
-import static io.brad.core.operators.Operators.*;
+import static io.brad.core.operators.Operators.isNumberGreaterThan;
+import static io.brad.core.operators.Operators.isNumberLessThan;
 
 interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T> {
 
@@ -13,9 +14,8 @@ interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T>
         return new FieldToValueRule<>(this, (ComparisonOperator<T>) isNumberGreaterThan, value);
     }
 
-    @SuppressWarnings("unchecked")
     default Rule<M> isGreaterOrEqual(T value) {
-        return new FieldToValueRule<>(this, (ComparisonOperator<T>) isNumberGreaterOrEqual, value);
+        return isLessThan(value).negate();
     }
 
     @SuppressWarnings("unchecked")
@@ -23,8 +23,7 @@ interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T>
         return new FieldToValueRule<>(this, (ComparisonOperator<T>) isNumberLessThan, value);
     }
 
-    @SuppressWarnings("unchecked")
     default Rule<M> isLessOrEqual(T value) {
-        return new FieldToValueRule<>(this, (ComparisonOperator<T>) isNumberLessOrEqual, value);
+        return isGreaterThan(value).negate();
     }
 }

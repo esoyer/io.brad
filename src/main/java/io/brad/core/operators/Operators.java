@@ -17,14 +17,8 @@ public class Operators {
     public static final ComparisonOperator<? extends Number> isNumberGreaterThan
             = new ComparisonOperatorImpl<>("number_greater_than", (v1, v2) -> compareNumbers(v1, v2) > 0);
 
-    public static final ComparisonOperator<? extends Number> isNumberGreaterOrEqual
-            = new ComparisonOperatorImpl<>("number_greater_or_equal", (v1, v2) -> compareNumbers(v1, v2) >= 0);
-
     public static final ComparisonOperator<? extends Number> isNumberLessThan
             = new ComparisonOperatorImpl<>("number_less_than", (v1, v2) -> compareNumbers(v1, v2) < 0);
-
-    public static final ComparisonOperator<? extends Number> isNumberLessOrEqual
-            = new ComparisonOperatorImpl<>("number_less_or_equal", (v1, v2) -> compareNumbers(v1, v2) <= 0);
 
     public static final ComparisonOperator<? extends Temporal> isTemporalAfter
             = new ComparisonOperatorImpl<>("is_temporal_after", (v1, v2) -> compareTemporals(v1, v2) < 0);
