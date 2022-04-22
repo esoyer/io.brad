@@ -7,6 +7,6 @@ public class Functions {
     public static final NamedFunction<? extends Collection<?>, Integer> collection_size
             = new NamedFunctionImpl<>("collection_size", Collection::size, Integer.class);
 
-    public static final NamedFunction<? extends String, Integer> string_size
+    public static final NamedFunction<String, Integer> string_size
             = new NamedFunctionImpl<>("string_size", String::length, Integer.class);
 }

@@ -1,6 +1,5 @@
 package io.brad.core.fields;
 
-import io.brad.core.functions.NamedFunction;
 import io.brad.core.rules.FieldToFieldRule;
 import io.brad.core.rules.FieldToValueRule;
 import io.brad.core.rules.Rule;
@@ -10,9 +9,8 @@ import static io.brad.core.operators.Operators.*;
 
 public interface EvaluableStringField<M> extends EvaluableField<M, String> {
 
-    @SuppressWarnings("unchecked")
     default EvaluableNumberField<M, Integer> size() {
-        return new ComputedNumberField<>(this, (NamedFunction<String, Integer>) string_size);
+        return new ComputedNumberField<>(this, string_size);
     }
 
     default Rule<M> contains(String value) {
