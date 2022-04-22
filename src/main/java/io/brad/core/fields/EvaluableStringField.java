@@ -7,7 +7,7 @@ import io.brad.core.rules.Rule;
 import static io.brad.core.functions.Functions.string_size;
 import static io.brad.core.operators.Operators.*;
 
-public interface EvaluableStringField<M> extends EvaluableField<M, String> {
+interface EvaluableStringField<M> extends EvaluableField<M, String> {
 
     default EvaluableNumberField<M, Integer> size() {
         return new ComputedNumberField<>(this, string_size);

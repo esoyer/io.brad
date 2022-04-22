@@ -7,7 +7,7 @@ import io.brad.core.rules.Rule;
 
 import java.time.temporal.Temporal;
 
-public interface EvaluableTemporalField<M, T extends Temporal> extends EvaluableField<M, T> {
+interface EvaluableTemporalField<M, T extends Temporal> extends EvaluableField<M, T> {
 
     @SuppressWarnings("unchecked")
     default Rule<M> isAfter(T value) {

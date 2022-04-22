@@ -2,8 +2,6 @@ package io.brad.core.fields;
 
 import io.brad.core.functions.NamedFunction;
 
-import java.lang.reflect.Type;
-
 public abstract class ComputedField<M, T, U> implements Field<M, U> {
 
     private final Field<M, T> initialField;
@@ -23,7 +21,7 @@ public abstract class ComputedField<M, T, U> implements Field<M, U> {
     }
 
     @Override
-    public Type getType() {
+    public Class<U> getType() {
         return function.getReturnType();
     }
 

@@ -6,7 +6,7 @@ import io.brad.core.rules.Rule;
 
 import static io.brad.core.operators.Operators.*;
 
-public interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T> {
+interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T> {
 
     @SuppressWarnings("unchecked")
     default Rule<M> isGreaterThan(T value) {

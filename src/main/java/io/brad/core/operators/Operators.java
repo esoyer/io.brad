@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
 
 public class Operators {
@@ -26,15 +25,6 @@ public class Operators {
 
     public static final ComparisonOperator<? extends Number> isNumberLessOrEqual
             = new ComparisonOperatorImpl<>("number_less_or_equal", (v1, v2) -> compareNumbers(v1, v2) <= 0);
-
-    public static final ComparisonOperator<? extends Collection<?>> containsAny
-            = new ComparisonOperatorImpl<>("contains_any", (v1, v2) -> v2.stream().anyMatch(v1::contains));
-
-    public static final ComparisonOperator<? extends Collection<?>> containsAll
-            = new ComparisonOperatorImpl<>("contains_all", Collection::containsAll);
-
-    public static final ComparisonOperator<? extends Collection<?>> isEmpty
-            = new ComparisonOperatorImpl<>("is_empty", (v1, v2) -> v1.isEmpty());
 
     public static final ComparisonOperator<? extends Temporal> isTemporalAfter
             = new ComparisonOperatorImpl<>("is_temporal_after", (v1, v2) -> compareTemporals(v1, v2) < 0);

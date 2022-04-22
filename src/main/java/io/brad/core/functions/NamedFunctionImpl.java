@@ -2,7 +2,6 @@ package io.brad.core.functions;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.lang.reflect.Type;
 import java.util.function.Function;
 
 public class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
@@ -29,7 +28,7 @@ public class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
 
     @Override
     @JsonIgnore
-    public Type getReturnType() {
+    public Class<U> getReturnType() {
         return type;
     }
 }
