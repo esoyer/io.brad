@@ -6,7 +6,7 @@ import io.brad.core.rules.Rule;
 import static io.brad.core.operators.Operators.isNumberGreaterThan;
 import static io.brad.core.operators.Operators.isNumberLessThan;
 
-interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T> {
+public interface EvaluableNumberField<M, T extends Number> extends EvaluableField<M, T> {
 
     default Rule<M> isGreaterThan(T value) {
         return new FieldToValueRule<>(this, isNumberGreaterThan(), value);

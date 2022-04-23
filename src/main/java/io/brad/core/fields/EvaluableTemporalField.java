@@ -8,7 +8,11 @@ import java.time.temporal.Temporal;
 import static io.brad.core.operators.Operators.isTemporalAfter;
 import static io.brad.core.operators.Operators.isTemporalBefore;
 
-interface EvaluableTemporalField<M, T extends Temporal> extends EvaluableField<M, T> {
+public interface EvaluableTemporalField<M, T extends Temporal> extends EvaluableField<M, T> {
+
+    EvaluableNumberField<M, Long> ageAt(T value);
+
+    EvaluableNumberField<M, Long> ageAt(Field<M, T> value);
 
     default Rule<M> isAfter(T value) {
         return new FieldToValueRule<>(this, isTemporalAfter(), value);

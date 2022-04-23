@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.NullNode;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import io.brad.core.fields.Field;
 import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.rules.FieldToValueRule;
@@ -29,9 +28,7 @@ public class FieldToValueRuleDeserializer extends StdDeserializer<FieldToValueRu
         ComparisonOperator<?> operator = deserializationContext.readValue(toJsonParser(operatorNode, jsonParser), ComparisonOperator.class);
 
         TreeNode valueNode = rootNode.get("value");
-        Object value = valueNode instanceof NullNode ? null :
-                deserializationContext.readValue(toJsonParser(valueNode, jsonParser),
-                        TypeFactory.defaultInstance().constructType(field.getType()));
+        Object value = valueNode instanceof NullNode ? null : deserializationContext.readValue(toJsonParser(valueNode, jsonParser), field.getType());
 
         @SuppressWarnings({"unchecked", "rawtypes"})
         FieldToValueRule result = new FieldToValueRule(field, operator, value);

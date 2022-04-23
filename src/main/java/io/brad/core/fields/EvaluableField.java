@@ -9,7 +9,7 @@ import io.brad.core.rules.Rule;
 import java.util.Arrays;
 import java.util.Collection;
 
-interface EvaluableField<M, T> extends Field<M, T> {
+public interface EvaluableField<M, T> extends Field<M, T> {
 
     default Rule<M> eq(T value) {
         return new FieldToValueRule<>(this, Operators.eq(), value);

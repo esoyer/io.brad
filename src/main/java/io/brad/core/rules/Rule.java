@@ -8,11 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.brad.core.ModelFields;
-import io.brad.core.deserializers.FieldDeserializer;
-import io.brad.core.deserializers.FieldToValueRuleDeserializer;
-import io.brad.core.deserializers.NamedFunctionDeserializer;
-import io.brad.core.deserializers.OperatorDeserializer;
+import io.brad.core.deserializers.*;
 import io.brad.core.fields.Field;
+import io.brad.core.functions.NamedBiFunction;
 import io.brad.core.functions.NamedFunction;
 import io.brad.core.operators.ComparisonOperator;
 import io.brad.core.serializers.FieldSerializer;
@@ -61,6 +59,7 @@ public interface Rule<M> {
                                 .addDeserializer(Field.class, new FieldDeserializer(modelFields))
                                 .addDeserializer(ComparisonOperator.class, new OperatorDeserializer())
                                 .addDeserializer(NamedFunction.class, new NamedFunctionDeserializer())
+                                .addDeserializer(NamedBiFunction.class, new NamedBiFunctionDeserializer())
                                 .addDeserializer(FieldToValueRule.class, new FieldToValueRuleDeserializer()))
                 .registerModule(new JavaTimeModule())
                 .readValue(ruleAsJson, new TypeReference<>() {

@@ -8,7 +8,7 @@ import static io.brad.core.functions.Functions.stringSize;
 import static io.brad.core.operators.Operators.*;
 
 // TODO: add isEmpty / isNotEmpty and test them!
-interface EvaluableStringField<M> extends EvaluableField<M, String> {
+public interface EvaluableStringField<M> extends EvaluableField<M, String> {
 
     default EvaluableNumberField<M, Integer> size() {
         return new ComputedNumberField<>(this, stringSize());

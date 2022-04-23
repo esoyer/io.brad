@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.function.Function;
 
-public class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
+class NamedFunctionImpl<T, U> implements NamedFunction<T, U> {
 
     private final String code;
     private final Function<T, U> function;
