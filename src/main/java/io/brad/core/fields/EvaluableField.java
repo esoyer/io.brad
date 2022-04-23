@@ -1,7 +1,7 @@
 package io.brad.core.fields;
 
 import io.brad.core.DSL;
-import io.brad.core.operators.ComparisonOperator;
+import io.brad.core.operators.Operators;
 import io.brad.core.rules.FieldToFieldRule;
 import io.brad.core.rules.FieldToValueRule;
 import io.brad.core.rules.Rule;
@@ -9,18 +9,14 @@ import io.brad.core.rules.Rule;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static io.brad.core.operators.Operators.equals;
-
 interface EvaluableField<M, T> extends Field<M, T> {
 
-    @SuppressWarnings("unchecked")
     default Rule<M> eq(T value) {
-        return new FieldToValueRule<>(this, (ComparisonOperator<T>) equals, value);
+        return new FieldToValueRule<>(this, Operators.eq(), value);
     }
 
-    @SuppressWarnings("unchecked")
     default Rule<M> eq(Field<M, T> value) {
-        return new FieldToFieldRule<>(this, (ComparisonOperator<T>) equals, value);
+        return new FieldToFieldRule<>(this, Operators.eq(), value);
     }
 
     default Rule<M> notEq(Field<M, T> value) {
@@ -31,9 +27,8 @@ interface EvaluableField<M, T> extends Field<M, T> {
         return eq(value).negate();
     }
 
-    @SuppressWarnings("unchecked")
     default Rule<M> isNull() {
-        return new FieldToValueRule<>(this, (ComparisonOperator<T>) equals, null);
+        return new FieldToValueRule<>(this, Operators.eq(), null);
     }
 
     default Rule<M> isNotNull() {

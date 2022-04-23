@@ -19,27 +19,28 @@ public class FieldToValueRuleDeserializer extends StdDeserializer<FieldToValueRu
     }
 
     @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
     public FieldToValueRule<?, ?> deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
         TreeNode rootNode = jsonParser.getCodec().readTree(jsonParser);
 
         TreeNode fieldNode = rootNode.get("field");
-        Field<?, ?> field = deserializationContext.readValue(fieldNode.traverse(jsonParser.getCodec()), Field.class);
+        Field<?, ?> field = deserializationContext.readValue(toJsonParser(fieldNode, jsonParser), Field.class);
 
         TreeNode operatorNode = rootNode.get("operator");
-        ComparisonOperator<?> operator = deserializationContext.readValue(operatorNode.traverse(jsonParser.getCodec()), ComparisonOperator.class);
+        ComparisonOperator<?> operator = deserializationContext.readValue(toJsonParser(operatorNode, jsonParser), ComparisonOperator.class);
 
         TreeNode valueNode = rootNode.get("value");
-        if (valueNode instanceof NullNode) {
-            return new FieldToValueRule(field, operator, null);
-        }
+        Object value = valueNode instanceof NullNode ? null :
+                deserializationContext.readValue(toJsonParser(valueNode, jsonParser),
+                        TypeFactory.defaultInstance().constructType(field.getType()));
 
-        JsonParser valueJsonParser = valueNode.traverse(jsonParser.getCodec());
-        valueJsonParser.nextToken();
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        FieldToValueRule result = new FieldToValueRule(field, operator, value);
+        return result;
+    }
 
-        Object value = deserializationContext.readValue(valueJsonParser,
-                TypeFactory.defaultInstance().constructType(field.getType()));
-
-        return new FieldToValueRule(field, operator, value);
+    private static JsonParser toJsonParser(TreeNode fieldNode, JsonParser jsonParser) throws IOException {
+        JsonParser result = fieldNode.traverse(jsonParser.getCodec());
+        result.nextToken();
+        return result;
     }
 }
