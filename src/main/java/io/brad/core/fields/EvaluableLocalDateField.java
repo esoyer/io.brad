@@ -7,12 +7,12 @@ import java.time.LocalDate;
 public interface EvaluableLocalDateField<M> extends EvaluableTemporalField<M, LocalDate> {
 
     @Override
-    default EvaluableNumberField<M, Long> ageAt(LocalDate value) {
-        return new BiComputedNumberFieldWithValue<>(this, BiFunctions.localDateAgeAt(), value);
+    default LongField<M> ageAt(LocalDate value) {
+        return new LongField<>(new BiComputedFieldWithValue<>(this, BiFunctions.localDateAgeAt(), value));
     }
 
     @Override
-    default EvaluableNumberField<M, Long> ageAt(Field<M, LocalDate> value) {
-        return new BiComputedNumberFieldWithField<>(this, BiFunctions.localDateAgeAt(), value);
+    default LongField<M> ageAt(Field<M, LocalDate> value) {
+        return new LongField<>(new BiComputedFieldWithField<>(this, BiFunctions.localDateAgeAt(), value));
     }
 }

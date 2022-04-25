@@ -2,7 +2,7 @@ package io.brad.core.fields;
 
 import java.util.function.Function;
 
-public abstract class FieldFromModel<M, T> implements Field<M, T> {
+public final class FieldFromModel<M, T> implements Field<M, T> {
 
     private final String code;
     private final Function<M, T> fieldAccessor;

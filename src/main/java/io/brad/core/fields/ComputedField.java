@@ -2,7 +2,7 @@ package io.brad.core.fields;
 
 import io.brad.core.functions.NamedFunction;
 
-public abstract class ComputedField<M, T, U> implements Field<M, U> {
+public final class ComputedField<M, T, U> implements Field<M, U> {
 
     private final Field<M, T> initialField;
     private final NamedFunction<T, U> function;

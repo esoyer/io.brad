@@ -13,14 +13,14 @@ import java.util.function.Function;
 public class RuntimeModel implements ModelFields<RuntimeModel> {
 
     private final Map<String, Object> values;
-    private final Map<String, FieldFromModel<RuntimeModel, ?>> fields;
+    private final Map<String, Field<RuntimeModel, ?>> fields;
 
     public RuntimeModel() {
         values = new HashMap<>();
         fields = new HashMap<>();
     }
 
-    public <T> RuntimeModel set(FieldFromModel<RuntimeModel, T> field, T value) {
+    public <T> RuntimeModel set(Field<RuntimeModel, T> field, T value) {
         if (!fields.containsValue(field)) {
             throw new IllegalArgumentException(field + " does not exist in model");
         }
@@ -60,9 +60,9 @@ public class RuntimeModel implements ModelFields<RuntimeModel> {
         return addField(fieldName, value, LocalDateTimeField::new);
     }
 
-    private <T, V extends FieldFromModel<RuntimeModel, T>> V addField(String fieldName,
-                                                                      T value,
-                                                                      BiFunction<String, Function<RuntimeModel, T>, V> fieldCreator) {
+    private <T, V extends Field<RuntimeModel, T>> V addField(String fieldName,
+                                                             T value,
+                                                             BiFunction<String, Function<RuntimeModel, T>, V> fieldCreator) {
         if (fields.containsKey(fieldName)) {
             throw new IllegalArgumentException("Model contains already field " + fieldName);
         }
@@ -76,7 +76,7 @@ public class RuntimeModel implements ModelFields<RuntimeModel> {
     }
 
     @Override
-    public List<? extends FieldFromModel<RuntimeModel, ?>> getFields() {
+    public List<? extends Field<RuntimeModel, ?>> getFields() {
         return fields.values().stream().toList();
     }
 }

@@ -10,8 +10,8 @@ import static io.brad.core.operators.Operators.*;
 // TODO: add isEmpty / isNotEmpty and test them!
 public interface EvaluableStringField<M> extends EvaluableField<M, String> {
 
-    default EvaluableNumberField<M, Integer> size() {
-        return new ComputedNumberField<>(this, stringSize());
+    default IntegerField<M> size() {
+        return new IntegerField<>(new ComputedField<>(this, stringSize()));
     }
 
     default Rule<M> contains(String value) {

@@ -2,7 +2,7 @@ package io.brad.core.fields;
 
 import io.brad.core.functions.NamedBiFunction;
 
-public abstract class BiComputedFieldWithValue<M, T, U, V> implements Field<M, V> {
+public final class BiComputedFieldWithValue<M, T, U, V> implements Field<M, V> {
 
     private final Field<M, T> initialField;
     private final NamedBiFunction<T, U, V> biFunction;

@@ -2,9 +2,13 @@ package io.brad.core.fields;
 
 import java.util.function.Function;
 
-public final class FloatField<M> extends NumberField<M, Float> {
+public final class FloatField<M> extends DelegateFieldImpl<M, Float> implements EvaluableNumberField<M, Float> {
+
+    public FloatField(Field<M, Float> field) {
+        super(field);
+    }
 
     public FloatField(String code, Function<M, Float> fieldAccessor) {
-        super(code, fieldAccessor, Float.class);
+        super(new FieldFromModel<>(code, fieldAccessor, Float.class));
     }
 }

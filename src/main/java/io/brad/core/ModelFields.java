@@ -1,5 +1,6 @@
 package io.brad.core;
 
+import io.brad.core.fields.Field;
 import io.brad.core.fields.FieldFromModel;
 
 import java.util.Arrays;
@@ -11,7 +12,7 @@ import static org.jooq.lambda.Unchecked.function;
 
 public interface ModelFields<M> {
 
-    default List<? extends FieldFromModel<M, ?>> getFields() {
+    default List<? extends Field<M, ?>> getFields() {
         return Arrays.stream(getClass().getFields())
                 .filter(ModelFields::isPublicStatic)
                 .filter(f -> FieldFromModel.class.isAssignableFrom(f.getType()))

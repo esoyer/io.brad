@@ -2,9 +2,13 @@ package io.brad.core.fields;
 
 import java.util.function.Function;
 
-public final class LongField<M> extends NumberField<M, Long> {
+public final class LongField<M> extends DelegateFieldImpl<M, Long> implements EvaluableNumberField<M, Long> {
+
+    public LongField(Field<M, Long> field) {
+        super(field);
+    }
 
     public LongField(String code, Function<M, Long> fieldAccessor) {
-        super(code, fieldAccessor, Long.class);
+        super(new FieldFromModel<>(code, fieldAccessor, Long.class));
     }
 }
