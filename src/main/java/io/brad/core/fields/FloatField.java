@@ -2,7 +2,7 @@ package io.brad.core.fields;
 
 import java.util.function.Function;
 
-public final class FloatField<M> extends DelegateFieldImpl<M, Float> implements EvaluableNumberField<M, Float> {
+public final class FloatField<M> extends DelegateFieldImpl<M, Float> implements EvaluableFloatField<M> {
 
     public FloatField(Field<M, Float> field) {
         super(field);

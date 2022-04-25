@@ -2,7 +2,7 @@ package io.brad.core.fields;
 
 import java.util.function.Function;
 
-public final class IntegerField<M> extends DelegateFieldImpl<M, Integer> implements EvaluableNumberField<M, Integer> {
+public final class IntegerField<M> extends DelegateFieldImpl<M, Integer> implements EvaluableIntegerField<M> {
 
     public IntegerField(Field<M, Integer> field) {
         super(field);
